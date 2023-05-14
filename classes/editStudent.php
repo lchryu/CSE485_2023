@@ -22,50 +22,51 @@
 </head>
 
 <body>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <h3>Thông tin sinh viên</h3>
-        <a href="../index.php" class="btn btn-primary">Quay lại</a>
-    </div>
-    <?php
-    require_once('StudentDAO.php');
-    $studentDAO = new StudentDAO('../data/Student.csv');
-    $students = $studentDAO->getListStudent();
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        // Tìm sinh viên theo ID
-        $studentToEdit = null;
-        foreach ($students as $student) {
-            if ($student->getId() == $id) {
-                $studentToEdit = $student;
-                break;
+    <div class="container mt-4">
+        <div>
+            <h3 class="text-center mb-3">Thông tin sinh viên</h3>
+        </div>
+        <?php
+        require_once('StudentDAO.php');
+        $studentDAO = new StudentDAO('../data/Student.csv');
+        $students = $studentDAO->getListStudent();
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            // Tìm sinh viên theo ID
+            $studentToEdit = null;
+            foreach ($students as $student) {
+                if ($student->getId() == $id) {
+                    $studentToEdit = $student;
+                    break;
+                }
             }
         }
-    }
-    if ($studentToEdit) {
-    ?>
-    <form action="updateStudent.php" method="post">
+        if ($studentToEdit) {
+        ?>
+            <form action="updateStudent.php" method="post">
 
-        <div class="form-group mb-3">
-            <input type="hiden" name="id" id="id" class="form-control" value="<?= $studentToEdit->getId() ?>">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" value="<?= $studentToEdit->getName() ?>">
-        </div>
-        <div class="form-group mb-3">
-            <label for="score">Score</label>
-            <input type="text" id="score" name="score" class="form-control" value="<?= $studentToEdit->getScore() ?>">
-        </div>
-        <div class="form-group mb-3">
-            <label for="group">Group</label>
-            <input type="text" id="group" name="group" class="form-control" value="<?= $studentToEdit->getGroup() ?>">
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-
-        <form/>
+                <div class="form-group mb-3">
+                    <input type="hiden" name="id" id="id" class="form-control" value="<?= $studentToEdit->getId() ?>">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="form-control" value="<?= $studentToEdit->getName() ?>">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="score">Score</label>
+                    <input type="text" id="score" name="score" class="form-control" value="<?= $studentToEdit->getScore() ?>">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="group">Group</label>
+                    <input type="text" id="group" name="group" class="form-control" value="<?= $studentToEdit->getGroup() ?>">
+                </div>
+                <div  class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="../index.php" class="btn btn-primary">Quay lại</a>
+                </div>
+            </form>
         <?php } ?>
 
 
-</div>
+    </div>
 </body>
 
 </html>
